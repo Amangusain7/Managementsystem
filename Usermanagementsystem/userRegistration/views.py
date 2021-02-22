@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework import status
+from userRegistration.models import User
 from django.contrib.auth import authenticate
 from userRegistration.serializers import UserRegisterSerializer
 from rest_framework.permissions import IsAuthenticated
@@ -22,6 +23,15 @@ class registeruser(APIView):
                 return Response([],status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self,request):
+        email = request.GET.get('email')
+        li = User.objects.get(email=email)
+        serializer = UserRegisterSerializer(li,data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status":"modified","data":serializer.data})
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
         
