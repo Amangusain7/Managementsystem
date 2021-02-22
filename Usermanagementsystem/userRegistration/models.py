@@ -18,6 +18,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     nationality = models.CharField(max_length=100,null=True,blank=True)
     gender = models.CharField(max_length=100,choices=GENDER_CHOICES,null=True,blank=True)
     date_joined = models.DateTimeField(default=timezone.now)
+    avatar = models.ImageField('profile picture', null=True, blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
