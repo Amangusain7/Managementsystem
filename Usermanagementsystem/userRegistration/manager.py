@@ -14,7 +14,6 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email, password, **validated_data):
         user = self.create_user(email,password=password,**validated_data)
-
         user.is_staff = True
         user.is_active = True
         user.is_superuser = True 
@@ -23,8 +22,7 @@ class UserManager(BaseUserManager):
 
 
     def create_staffuser(self, email,  password=None):
-        user = self.create_user(email,password=password
-        )
+        user = self.create_user(email,password=password)
         user.is_admin = False
         user.is_staff = True
         user.is_superuser = False 
