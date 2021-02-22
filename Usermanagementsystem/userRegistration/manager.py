@@ -23,7 +23,7 @@ class UserManager(BaseUserManager):
 
     def create_staffuser(self, email,  password=None):
         user = self.create_user(email,password=password)
-        user.is_admin = False
+        user.is_active = False
         user.is_staff = True
         user.is_superuser = False 
         user.save(using=self._db)
