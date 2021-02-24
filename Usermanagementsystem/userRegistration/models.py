@@ -7,8 +7,8 @@ from django.utils import timezone
 
 # Create your models here.
 class User(AbstractBaseUser,PermissionsMixin):
-    GENDER_CHOICES = (("1","Male"),("2","female"))
-    
+    GENDER_CHOICES = (("Male","Male"),("female","female"))
+    ROLE = (("admin","admin"),("user","user"),("manager","manager"))
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=100,null=True,blank=True,default=None)
     email = models.EmailField(_('email address'), unique=True)
@@ -19,6 +19,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     gender = models.CharField(max_length=100,choices=GENDER_CHOICES,null=True,blank=True)
     date_joined = models.DateTimeField(default=timezone.now)
     profile_image = models.ImageField('profile picture', null=True, blank=True)
+    role = models.CharField(max_length=50, choices=ROLE, null=True,default=None)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)

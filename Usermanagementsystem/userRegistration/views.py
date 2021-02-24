@@ -7,6 +7,8 @@ from userRegistration.models import User
 from userRegistration.serializers import UserRegisterSerializer
 from rest_framework.permissions import IsAuthenticated
 from userRegistration.authenticate import UserAuthentication
+from rest_framework.authentication import TokenAuthentication
+from userRegistration.permissions import IsManagerUser,IsUser
 
 # Create your views here.
 class registeruser(APIView):
@@ -17,7 +19,7 @@ class registeruser(APIView):
             user = serializer.save()    
             if user: 
                 token = Token.objects.create(user=user)
-                return Response({"token":token.key},status=status.HTTP_201_CREATED)
+                return Response({"token":token.key,"role":user.role},status=status.HTTP_201_CREATED)
             else:
                 return Response([],status=status.HTTP_400_BAD_REQUEST)
         else:
@@ -31,6 +33,12 @@ class registeruser(APIView):
             serializer.save()
             return Response({"status":"modified","data":serializer.data})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    
+    def get(self,request):
+        permission_classes =(IsAuthenticated)
+        serializer = UserRegisterSerializer(request.user)
+        return Response(serializer.data)
 
 
 class LoginView(APIView):
