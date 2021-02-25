@@ -26,6 +26,7 @@ class registeruser(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self,request):
+        permission_classes = (IsAuthenticated)
         email = request.GET.get('email')
         user_data = User.objects.get(email=email)
         serializer = UserRegisterSerializer(user_data,data=request.data, partial=True)
