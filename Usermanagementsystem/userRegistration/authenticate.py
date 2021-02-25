@@ -1,7 +1,7 @@
 from userRegistration.models import User
 from rest_framework import authentication
 from rest_framework import exceptions
-from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth import authenticate
 
 class UserAuthentication(authentication.BaseAuthentication):
     def authenticate(self,email=None,password=None):
@@ -9,9 +9,12 @@ class UserAuthentication(authentication.BaseAuthentication):
             return None
         try:
             user = User.objects.get(email=email)
-            password = user.check_password(password)
-
+            if user.check_password(password):
+                return user
+            else:
+                return None
         except User.DoesNotExist:
-            raise exceptions.AuthenticationFailed('No such user')
-        return user
+            raise exceptions.AuthenticationFailed('Something went wrong')
+
+                
     
