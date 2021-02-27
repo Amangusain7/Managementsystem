@@ -8,7 +8,7 @@ from userRegistration.serializers import UserRegisterSerializer
 from rest_framework.permissions import IsAuthenticated
 from userRegistration.authenticate import UserAuthentication
 from rest_framework.authentication import TokenAuthentication
-from userRegistration.permissions import IsManagerUser,IsUser
+from userRegistration.permissions import IsManagerUser
 
 # Create your views here.
 class registeruser(APIView):

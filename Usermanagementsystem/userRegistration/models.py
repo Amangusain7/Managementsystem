@@ -8,7 +8,6 @@ ROLE = (("admin","admin"),("user","user"),("manager","manager"))
 
 # Create your models here.
 class User(AbstractBaseUser,PermissionsMixin):
-   
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=100,null=True,blank=True,default=None)
     email = models.EmailField(unique=True)

@@ -4,9 +4,6 @@ from userRegistration.models import User
 class IsManagerUser(BasePermission):
     
     def has_permission(self,request,view):
-            return request.user.role == 'Manager'
+            return request.user.role == 'manager'
+                
 
-class IsUser(BasePermission):
-    
-    def has_permission(self,request,view):
-            return request.user.role == 'user'
