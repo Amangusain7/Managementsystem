@@ -1,5 +1,7 @@
 from django.db import models
 from userRegistration.models import User
+import datetime
+from django.utils import timezone
 
 STATUS = (("GOOD","GOOD"),("OK","OK"),("BAD","BAD"))
 
@@ -13,3 +15,13 @@ class usertask(models.Model):
     created = models.DateField(auto_now=True)
     updated = models.DateField(auto_now=True)
     user = models.ForeignKey(User,default=None,on_delete=models.CASCADE)
+
+    # @property
+    # def subtasks(self):
+    #     return self.subtask_set.all()
+
+class subTask(models.Model):
+    subtask = models.ForeignKey(usertask,related_name='subtasks',default=None,null=True,on_delete=models.CASCADE)
+    name = models.CharField(max_length=100,null=True,blank=True)
+    city = models.CharField(max_length=100,null=True,blank=True)
+    vote = models.IntegerField(default=0)

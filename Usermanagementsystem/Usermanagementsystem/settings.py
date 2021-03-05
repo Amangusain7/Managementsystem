@@ -87,8 +87,11 @@ DATABASES = {
         'PASSWORD': 'Dbuser@1',
         'HOST': 'localhost',
         'PORT': '',
+
+        'OPTIONS': {
+         "init_command": "SET foreign_key_checks = 0;",
     }
-}
+}}
 
 
 # Password validation
@@ -135,9 +138,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    )
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # )
 }
 
 AUTH_USER_MODEL = 'userRegistration.User'
