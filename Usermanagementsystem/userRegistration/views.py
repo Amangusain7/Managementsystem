@@ -8,7 +8,9 @@ from userRegistration.serializers import UserRegisterSerializer
 from rest_framework.permissions import IsAuthenticated
 from userRegistration.authenticate import UserAuthentication
 from rest_framework.authentication import TokenAuthentication
-from userRegistration.permissions import IsManagerUser,IsUser
+from userRegistration.permissions import IsManagerUser
+from rest_framework import permissions
+
 
 # Create your views here.
 class registeruser(APIView):
@@ -55,6 +57,10 @@ class LoginView(APIView):
             return Response(token.key)
         else:
             return Response("User Does not exists", status=status.HTTP_401_UNAUTHORIZED)
+
+    
+
+
 
 
         
